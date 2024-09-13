@@ -69,6 +69,9 @@ class Library:
         self.__checked_in_books.append((isbn, dni, returned_date))
         
         user = next((u for u in self.__users if u.get_dni() == dni), None)
+        if user is None:
+            return f"User with DNI {dni} not found"
+
         user.increment_checkins()
         
         self.__checked_out_books.remove(checkout_entry)
@@ -82,5 +85,3 @@ class Library:
         new_user = User(dni, name)
         self.__users.append(new_user)
         return f"User {dni} added"
-
-
